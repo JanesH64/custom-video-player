@@ -1,0 +1,193 @@
+<html>
+
+<head>
+    <title>Custom Video Player</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:ital@1&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="flex-center">
+        <div class="video-container">
+            <video src="./sample.mp4" class="video" muted="muted" playsinline></video>
+            <img class="thumbnail" src="sample.jpg" alt="">
+            <div class="controls">
+                <div class="progress-bar">
+                    <div class="content"></div>
+                </div>
+            </div>
+        </div>
+        <div class="video-container">
+            <video src="./sample.mp4" class="video" muted="muted" playsinline></video>
+            <img class="thumbnail" src="sample.jpg" alt="">
+            <div class="controls">
+                <div class="progress-bar">
+                    <div class="content"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="video-container">
+            <video src="./sample.mp4" class="video" muted="muted" playsinline></video>
+            <img class="thumbnail" src="sample.jpg" alt="">
+            <div class="controls">
+                <div class="progress-bar">
+                    <div class="content"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="video-container">
+            <video src="./sample.mp4" class="video" muted="muted" playsinline></video>
+            <img class="thumbnail" src="sample.jpg" alt="">
+            <div class="controls">
+                <div class="progress-bar">
+                    <div class="content"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    var videoContainers = document.querySelectorAll('.video-container');
+
+    for (var i = 0; i < videoContainers.length; i++) {
+        let container = videoContainers[i];
+        let video = container.querySelector('.video');
+        let progress = container.querySelector('.progress-bar .content');
+        container.setAttribute("data-allowed-to-pause", true);
+
+        container.addEventListener('mouseenter', () => {
+            container.setAttribute("data-allowed-to-pause", false);
+            video.play();
+        });
+
+        container.addEventListener('mouseleave', () => {
+            container.setAttribute("data-allowed-to-pause", true);
+
+            setTimeout(() => {
+                var allowedToPause = container.getAttribute("data-allowed-to-pause");
+                if (allowedToPause === "false") {
+                    return;
+                }
+
+                video.pause();
+                video.currentTime = 0;
+            }, 800);
+        });
+
+        video.addEventListener('timeupdate', function () {
+            var percent = Math.floor((100 / video.duration) * video.currentTime);
+            progress.style.width = percent + '%';
+        });
+    }
+
+</script>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .flex-center {
+        background-color: black;
+        display: flex;
+        justify-content: center;
+        min-height: 100vh;
+        flex-direction: column;
+        padding: 10px;
+
+    }
+
+    .video-container {
+        position: relative;
+        width: 100%;
+        max-width: 800px;
+        overflow: hidden;
+        margin: 20px 10px 10px 20px;
+        border-radius: 10px !important;
+    }
+
+    .video-container:nth-child(2n) {
+        margin-left: auto;
+    }
+
+    .thumbnail {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        cursor: pointer;
+        opacity: 100%;
+        transition: all .8s;
+    }
+
+    .video-container:hover .thumbnail {
+        opacity: 0%;
+
+    }
+
+    .video {
+        width: 100%;
+        height: auto;
+    }
+
+    .controls {
+        display: flex;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        flex-wrap: wrap;
+        background-color: rgba(0, 0, 0, 0.7);
+        transition: all .2s;
+    }
+
+    .progress-bar {
+        height: 3px;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: black;
+    }
+
+    .progress-bar>.content {
+        height: 10px;
+        background-color: orangered;
+        width: 0;
+        transition: all .5s;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Arimo', sans-serif;
+    }
+
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        background: rgb(231, 231, 231);
+        background: linear-gradient(90deg, rgba(231, 231, 231, 1) 0%, rgba(154, 154, 154, 1) 100%);
+        color: rgb(82, 82, 82);
+    }
+
+    header a {
+        color: rgb(82, 82, 82);
+        text-decoration: none;
+    }
+
+    header a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+</html>
