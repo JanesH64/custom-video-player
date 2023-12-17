@@ -16,3 +16,4 @@ jobs:
         run: |
           docker build . --tag ghcr.io/janesh64/custom-video-player-demo:latest
           docker push ghcr.io/janesh64/custom-video-player-demo:latest
+
